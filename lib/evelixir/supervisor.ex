@@ -1,0 +1,28 @@
+defmodule Evelixir.Supervisor do
+  use Supervisor
+  require Logger
+
+  def start_link(initial) do
+    Logger.debug "Evelixir.Supervisor start_link called"
+
+    result = {:ok, sup} = Supervisor.start_link(__MODULE__, [initial], name: __MODULE__)
+    start_workers(sup, initial)
+    result
+  end
+
+  def start_workers(sup, initial) do
+    {:ok, stash} = Supervisor.start_child(
+      sup,
+      worker(Evelixir.Stash, [%{current_number: initial, delta: 1}])
+    )
+    
+    z = supervisor(Evelixir.SubSupervisor, [stash])
+    ret = Supervisor.start_child(sup, z)
+    ret
+  end
+
+  def init(_) do
+    supervise [], strategy: :one_for_one
+  end
+end
+
