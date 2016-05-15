@@ -1,9 +1,9 @@
-defmodule Evelixir.Supervisor do
+defmodule Keyserver.Supervisor do
   use Supervisor
   require Logger
 
   def start_link(initial) do
-    Logger.debug "Evelixir.Supervisor start_link called"
+    Logger.debug "Keyserver.Supervisor start_link called"
 
     result = {:ok, sup} = Supervisor.start_link(__MODULE__, [initial], name: __MODULE__)
     start_workers(sup, initial)
@@ -13,10 +13,10 @@ defmodule Evelixir.Supervisor do
   def start_workers(sup, initial) do
     {:ok, stash} = Supervisor.start_child(
       sup,
-      worker(Evelixir.Stash, [%{current_number: initial, delta: 1}])
+      worker(Keyserver.Stash, [%{current_number: initial, delta: 1}])
     )
     
-    z = supervisor(Evelixir.SubSupervisor, [stash])
+    z = supervisor(Keyserver.SubSupervisor, [stash])
     ret = Supervisor.start_child(sup, z)
     ret
   end

@@ -1,6 +1,6 @@
-defmodule EvelixirTest do
+defmodule KeyserverTest do
   use ExUnit.Case
-  doctest Evelixir
+  doctest Keyserver
 
   test "the truth" do
     assert 1 + 1 == 2

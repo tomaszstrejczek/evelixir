@@ -1,11 +1,11 @@
-defmodule Evelixir.Stash do
+defmodule Keyserver.Stash do
   use GenServer
   require Logger
 
   # public API
 
   def start_link(initial) do
-    Logger.debug "Evelixir.Stash start_link called"
+    Logger.debug "Keyserver.Stash start_link called"
   
     {:ok, _pid} = GenServer.start_link(__MODULE__, initial, name: __MODULE__)
   end
