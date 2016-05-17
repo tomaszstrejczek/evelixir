@@ -37,8 +37,6 @@ defmodule Keyserver.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:jose, "~> 1.7"},
-      {:guardian, "~> 0.11.1"}
     ]
   end
 end

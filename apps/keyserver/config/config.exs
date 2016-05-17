@@ -31,11 +31,3 @@ config :keyserver, datafile: "/tmp/keyserver.dets"
 #
 #     import_config "#{Mix.env}.exs"
 
-config :guardian, Guardian,
-  allowed_algos: ["HS512"], # optional
-  verify_module: Guardian.JWT,  # optional
-  issuer: "Evelixir",
-  ttl: { 30, :days },
-  verify_issuer: true, # optional
-  secret_key: JOSE.JWK.from_pem_file("c:/tmp/c.pem"),
-  serializer: MyApp.GuardianSerializer
