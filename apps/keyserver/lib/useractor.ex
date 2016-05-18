@@ -17,6 +17,13 @@ defmodule Keyserver.UserActor do
         ret
     end
 
+    def start(userinfo) do
+        Logger.debug "Keyserver.UserActor start called"
+        ret = GenServer.start(__MODULE__, userinfo)
+        Logger.debug "UserActor start end #{inspect ret}"
+        ret
+    end
+
     def stop(pid) do
         GenServer.call(pid, :stop)
     end 

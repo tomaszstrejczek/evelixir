@@ -3,14 +3,9 @@ defmodule UserActorTest do
 
   test "Start useractor" do
     u = %Keyserver.UserInfo{username: "ala"}
-    {:ok, pid} = Keyserver.UserActor.start_link(u)
-
-    Process.flag(:trap_exit, true)
-    #Process.unlink(pid)   
+    {:ok, pid} = Keyserver.UserActor.start(u)
     
-    Keyserver.UserActor.stop(pid)
-    #Process.exit(pid, :normal)
-      
-    assert_receive :normal           
+    {status, _} = catch_exit(Keyserver.UserActor.stop(pid))    
+    assert  status == :normal
   end
 end
