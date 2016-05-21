@@ -22,7 +22,6 @@ use Mix.Config
 #
 
 config :keyserver, datafile: "/tmp/keyserver.dets"
-config :keyserver, testdatafile: "/tmp/testkeyserver.dets"
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment

@@ -10,6 +10,8 @@ defmodule Keyserver.Supervisor do
     result
   end
 
+  @userrepo_name Keyserver.UserRepo
+
   def start_workers(sup, initial) do
     {:ok, stash} = Supervisor.start_child(
       sup,
@@ -21,6 +23,11 @@ defmodule Keyserver.Supervisor do
     {:ok, directory} = Supervisor.start_child(
       sup,
       worker(Keyserver.UserDirectory, [path])       
+    )
+
+    {:ok, userrepo} = Supervisor.start_child(
+      sup,
+      worker(Keyserver.UserRepo, [path])       
     )
     
     z = supervisor(Keyserver.SubSupervisor, [stash])

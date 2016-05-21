@@ -9,19 +9,19 @@ defmodule Keyserver.UserRepo do
         ret
     end
 
-    def add(pid,userinfo= %Keyserver.UserInfo{}) do
-        Logger.debug "Keyserver.UserRepo add called #{inspect pid} #{inspect userinfo}"
-        GenServer.call pid, {:add, userinfo}
+    def add(userinfo= %Keyserver.UserInfo{}) do
+        Logger.debug "Keyserver.UserRepo add called #{inspect userinfo}"
+        GenServer.call __MODULE__, {:add, userinfo}
     end
 
-    def update(pid,userinfo= %Keyserver.UserInfo{}) do
-        Logger.debug "Keyserver.UserRepo update called #{inspect pid} #{inspect userinfo}"
-        GenServer.call pid, {:update, userinfo}
+    def update(userinfo= %Keyserver.UserInfo{}) do
+        Logger.debug "Keyserver.UserRepo update called  #{inspect userinfo}"
+        GenServer.call __MODULE__, {:update, userinfo}
     end
 
-    def get(pid, username) do
-        Logger.debug "Keyserver.UserRepo get called #{inspect pid} #{inspect username}"
-        GenServer.call pid, {:get, username}
+    def get(username) do
+        Logger.debug "Keyserver.UserRepo get called  #{inspect username}"
+        GenServer.call __MODULE__, {:get, username}
     end
 
     def handle_call({:add, userinfo}, _from, path) do
