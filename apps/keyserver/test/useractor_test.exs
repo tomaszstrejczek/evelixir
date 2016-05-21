@@ -3,7 +3,7 @@ defmodule UserActorTest do
 
   test "Start useractor" do
     u = %Keyserver.UserInfo{username: "ala"}
-    {:ok, pid} = Keyserver.UserActor.start(u)
+    {:ok, pid} = Keyserver.UserActor.start_link(u)
     
     {status, _} = catch_exit(Keyserver.UserActor.stop(pid))    
     assert  status == :normal

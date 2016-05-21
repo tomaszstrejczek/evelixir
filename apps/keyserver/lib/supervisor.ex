@@ -13,7 +13,14 @@ defmodule Keyserver.Supervisor do
   def start_workers(sup, initial) do
     {:ok, stash} = Supervisor.start_child(
       sup,
-      worker(Keyserver.Stash, [%{current_number: initial, delta: 1}])
+      worker(Keyserver.Stash, [%{current_number: initial, delta: 1}])       
+    )
+
+    {:ok, path} = Application.fetch_env(:keyserver, :datafile)
+    
+    {:ok, directory} = Supervisor.start_child(
+      sup,
+      worker(Keyserver.UserDirectory, [path])       
     )
     
     z = supervisor(Keyserver.SubSupervisor, [stash])
