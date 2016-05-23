@@ -20,16 +20,19 @@ defmodule Keyserver.Supervisor do
 
     {:ok, path} = Application.fetch_env(:keyserver, :datafile)
     
-    {:ok, directory} = Supervisor.start_child(
-      sup,
-      worker(Keyserver.UserDirectory, [path])       
-    )
-
     {:ok, userrepo} = Supervisor.start_child(
       sup,
       worker(Keyserver.UserRepo, [path])       
     )
-    
+
+    {:ok, directory} = Supervisor.start_child(
+      sup,
+      worker(Keyserver.UserDirectory,[])       
+    )
+
+    zz = supervisor(Keyserver.UserActorSup, [])
+    Supervisor.start_child(sup, zz)
+   
     z = supervisor(Keyserver.SubSupervisor, [stash])
     ret = Supervisor.start_child(sup, z)
     ret
