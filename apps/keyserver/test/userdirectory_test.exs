@@ -11,10 +11,10 @@ defmodule UserDirectoryTest do
     {:ok, pid} = Keyserver.UserDirectory.register_user("ala@kot.pies", "password")
   end
 
-#  test "Duplicate register" do
-#    {:ok, pid} = Keyserver.UserDirectory.register_user("ala@kot.pies", "password")
+  test "Duplicate register" do
+    {:ok, pid} = Keyserver.UserDirectory.register_user("ala@kot.pies", "password")
 
-#    :duplicate = Keyserver.UserDirectory.register_user("ala@kot.pies", "password")
-#  end
+    :duplicate = Keyserver.UserDirectory.register_user("ala@kot.pies", "password")
+  end
 
 end
