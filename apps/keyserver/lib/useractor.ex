@@ -24,6 +24,10 @@ defmodule Keyserver.UserActor do
     def get_keys(pid) do
         GenServer.call(pid, :get_keys)
     end 
+
+    def add_key(pid, keyid, vcode) do
+        GenServer.call(pid, :add_key, keyid, vcode)
+    end 
     
     def init(userinfo) do
         { :ok, {userinfo} } 
@@ -35,6 +39,10 @@ defmodule Keyserver.UserActor do
     end 
 
     def handle_call(:get_keys, _from, {state = %Keyserver.UserInfo{}}) do
+        {:reply, state.keys, state}
+    end 
+
+    def handle_call(:add_keys, _from, {state = %Keyserver.UserInfo{}}) do
         {:reply, state.keys, state}
     end 
 
